@@ -5,12 +5,36 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8090:8080"
+      - "8090:8080"         # expose ONLY API
     volumes:
       - .:/app
     env_file:
       - .env
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    depends_on:
+      - mysql
     command: mvn spring-boot:run
+    networks:
+      - okets_net
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - okets_net
+
+volumes:
+  mysql_data:
+
+networks:
+  okets_net:
+    driver: bridge
