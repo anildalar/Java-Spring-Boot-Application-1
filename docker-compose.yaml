@@ -1,0 +1,16 @@
+services:
+  springboot-dev:
+    container_name: springboot_dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8080"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    command: mvn spring-boot:run
