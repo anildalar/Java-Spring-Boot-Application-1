@@ -14,7 +14,6 @@ public class FriendController {
     public FriendController(FriendService friendService) {
         this.friendService = friendService;
     }
-
     @GetMapping("/friends")
     public List<Friend> getFriends() {
         return friendService.getAllFriends();
