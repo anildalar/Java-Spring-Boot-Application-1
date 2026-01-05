@@ -2,6 +2,9 @@ package com.example.demo.controller.web;
 
 import com.example.demo.dto.UserCreateDTO;
 import com.example.demo.service.v1.UserServiceV1;
+
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,14 +31,14 @@ public class UserWebController {
     // Handle form submit
     @PostMapping("/users/create")
     public String handleCreate(
-            @ModelAttribute("user") UserCreateDTO user,
+            @Valid @ModelAttribute("user") UserCreateDTO user,
             BindingResult result,
             Model model
     ) {
         if (result.hasErrors()) {
             return "users/create";
         }
-        userServiceV1.create(user);
+        //userServiceV1.create(user);
         model.addAttribute("user", user);
         return "users/success";
     }
