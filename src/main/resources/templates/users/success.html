@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>User Created</title>
+</head>
+
+<body>
+    <h2>User Created Successfully ✅</h2>
+    <p>
+        <b>Name:</b>
+        <span th:text="${user.name}"></span>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </p>
+    <p>
+        <b>Email:</b>
+        <span th:text="${user.email}"></span>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </p>
+    <a href="/users/create">Create Another</a>
+</body>
+
+</html>
